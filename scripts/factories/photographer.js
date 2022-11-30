@@ -54,7 +54,7 @@ function photographerFactory(data) {
         p.textContent = city + ', ' + country;
         p1.textContent = tagline;
         p.setAttribute("class", "lieu");
-        p1.setAttribute("class", "prix");
+        p1.setAttribute("class", "description");
 
         article.appendChild(h1);
         article.appendChild(p);
@@ -67,16 +67,31 @@ function photographerFactory(data) {
     return { name, picture, city, country, tagline, price, getUserCardDOM }
 }
 function mediaFactory(data, nom) {
-    const { title, image, likes, date, price } = data;
-    const picture = `assets/photographers/${nom}/${image}`;
-
+    const { title, image, video, likes, date, price } = data;
+    let picture = "";
+    if (image !== undefined){
+        picture = `assets/photographers/${nom}/${image}`;
+    }else{
+        picture = `assets/photographers/${nom}/${video}`;
+    }
     function getMediaDOM() {
         const img = document.createElement( 'img' );
+        const vd = document.createElement('video'); 
         const div = document.createElement('div');
         const p = document.createElement('p');
-        img.setAttribute("src", picture);
+        if(picture.endsWith(".mp4")){
+            const source = document.createElement('source');
+            source.setAttribute("src", picture);
+            source.setAttribute("type", "video/mp4")
+            vd.setAttribute("controls","");
+            vd.textContent = "La vidéo n'est pas supporter par le navigateur."
+            vd.appendChild(source);
+            div.appendChild(vd);
+        }else{
+            img.setAttribute("src", picture);
+            div.appendChild(img);   
+        }
         p.textContent = title+" "+likes+" "+date+" "+price;
-        div.appendChild(img);
         div.appendChild(p);
         return (div);
     }
