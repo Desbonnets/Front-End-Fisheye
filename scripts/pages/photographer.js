@@ -48,16 +48,18 @@ async function displayData(photographers, media) {
             const photographerModel = photographerFactory(photographer);
             const userCardDOM = photographerModel.getUserCardDOM();
             photographersHeader.appendChild(userCardDOM);
-        } 
-        if (location.search == '?'+name){
+            let nbMedia = 1;
             media.forEach((media1) => {
                 if (media1['photographerId'] == photographer['id']){
-                    const mediaModel = mediaFactory(media1);
+                    //const divrow = document.createElement('div');
+                    //const result = nbMedia % 3;
+                    const mediaModel = mediaFactory(media1, photographer['name']);
                     const mediaDOM = mediaModel.getMediaDOM();
                     photographersMedia.appendChild(mediaDOM);
+                    nbMedia++;
                 }
             });
-        }
+        } 
     });
     
 };

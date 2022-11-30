@@ -39,8 +39,14 @@ function photographerFactory(data) {
     function getUserCardDOM() {
         const article = document.createElement( 'article' );
         const img = document.createElement( 'img' );
+        const btn = document.createElement('button')
+        const div = document.createElement('div')
         img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
         img.setAttribute("class", "portrait");
+        btn.setAttribute("class", "contact_button");
+        btn.setAttribute("onclick", "displayModal()");
+        btn.textContent = "Contactez-moi";
         const h1 = document.createElement('h1');
         h1.textContent = name;
         const p = document.createElement( 'p' );
@@ -49,30 +55,30 @@ function photographerFactory(data) {
         p1.textContent = tagline;
         p.setAttribute("class", "lieu");
         p1.setAttribute("class", "prix");
-        article.appendChild(img);
+
         article.appendChild(h1);
         article.appendChild(p);
         article.appendChild(p1);
-        return (article);
+        div.appendChild(article);
+        div.appendChild(btn);
+        div.appendChild(img);
+        return (div);
     }
     return { name, picture, city, country, tagline, price, getUserCardDOM }
 }
-function mediaFactory(data) {
+function mediaFactory(data, nom) {
     const { title, image, likes, date, price } = data;
-
-    const picture = `assets/photographers/Mimi/${image}`;
+    const picture = `assets/photographers/${nom}/${image}`;
 
     function getMediaDOM() {
-        const section = document.createElement('section');
         const img = document.createElement( 'img' );
         const div = document.createElement('div');
         const p = document.createElement('p');
         img.setAttribute("src", picture);
-        p.textContent = title+" "+image+" "+likes+" "+date+" "+price;
-        //div.textContent = "Trier par";
-        section.appendChild(img);
-        section.appendChild(p);
-        return (section);
+        p.textContent = title+" "+likes+" "+date+" "+price;
+        div.appendChild(img);
+        div.appendChild(p);
+        return (div);
     }
     return {  picture, title, likes, date, price, getMediaDOM }
 }

@@ -73,7 +73,30 @@ p{
 .prix {
     color: #525252;
 }
-.photograph-header article img {
+.photograph-header div img {
+    position: static;
     height: 200px;
     width: 200px;
+}
+.photograph-header div {
+    justify-self: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 100%;
+    margin-right: 30px;
+    margin-left: 30px;
+    align-items: center;
+}
+.photograph-media div img {
+    height: 280px;
+    width: 280px;
+    border-radius: 5%;
+}
+.photograph-media {
+    margin-left: 100px;
+}
+.photograph-media div{
+    margin-right: 100px;
+    float: left;
 }
