@@ -1,10 +1,6 @@
-const btn = document.querySelector('.contact_button')
-
-btn.addEventListener("click", displayModal);
-
 function displayModal() {
     const modal = document.getElementById("contact_modal");
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 function closeModal() {

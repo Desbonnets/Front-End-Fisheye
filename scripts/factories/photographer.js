@@ -101,5 +101,33 @@ function mediaFactory(data, nom) {
         div.appendChild(aime);
         return (div);
     }
-    return { picture, title, likes, getMediaDOM }
+    function getGalerieDOM() {
+        const img = document.createElement('img');
+        const vd = document.createElement('video');
+        const div = document.createElement('div');
+        const p = document.createElement('p');
+        const aime = document.createElement('p');
+        const icon = document.createElement('i');
+        if (picture.endsWith(".mp4")) {
+            const source = document.createElement('source');
+            source.setAttribute("src", picture);
+            source.setAttribute("type", "video/mp4")
+            vd.setAttribute("controls", "");
+            vd.textContent = "La vidéo n'est pas supporter par le navigateur."
+            vd.appendChild(source);
+            div.appendChild(vd);
+        } else {
+            img.setAttribute("src", picture);
+            div.appendChild(img);
+        }
+        p.textContent = title;
+        div.appendChild(p);
+        aime.setAttribute("class", "likes");
+        aime.textContent = likes;
+        icon.setAttribute('class', 'fa-solid fa-heart');
+        aime.appendChild(icon);
+        div.appendChild(aime);
+        return (div);
+    }
+    return { picture, title, likes, getMediaDOM, getGalerieDOM }
 }

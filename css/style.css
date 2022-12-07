@@ -117,45 +117,52 @@ p {
     align-items: center;
 }
 
-.photograph-media div img {
-    height: 350px;
-    width: 350px;
+.photograph-media section div img {
+    height: 100%;
+    width: 100%;
     border-radius: 2%;
     object-fit: cover;
     object-position: center;
 }
 
-.photograph-media div video {
+.photograph-media section div video {
+    height: 100%;
+    width: 100%;
+}
+
+.photograph-media section div {
+    width: 350px;
     height: 350px;
-    width: 350px;
 }
 
-.photograph-media div {
-    width: 350px;
-}
-
-.photograph-media div p {
+.photograph-media section div p {
     color: #901C1C;
     font-size: 18px;
 }
 
-.photograph-media div .likes {
+.photograph-media section div .likes {
     display: flex;
     justify-content: flex-end;
     position: relative;
     bottom: 26px;
+    cursor: pointer;
 }
-.photograph-media div .likes:hover {
+.photograph-media section div .likes:hover {
     color: #D3573C;
 }
-.photograph-media div .likes i {
+.photograph-media section div .likes i {
+    cursor: pointer;
     padding-left: 10px;
 }
-
 .photograph-media {
+    margin: 0 100px;
+    margin-top: 100px;
+}
+
+.photograph-media section{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 70px;
+    gap: 180px;
     margin-top: 100px;
     justify-items: center;
 }
