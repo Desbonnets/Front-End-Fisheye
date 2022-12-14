@@ -63,10 +63,26 @@ function photographerFactory(data) {
         div.appendChild(img);
         return (div);
     }
-    return { name, picture, city, country, tagline, price, getUserCardDOM }
+
+    function getScoreCardDOM() {
+        const div = document.createElement('div')
+        const icon = document.createElement('i');
+        const p = document.createElement('p');
+        const p1 = document.createElement('p');
+        icon.setAttribute('class', 'fa-solid fa-heart')
+        p.setAttribute('id', 'scoreLikes')
+        p.textContent = 0;
+        p1.textContent = price + '€ / jour';
+        div.appendChild(p);
+        div.appendChild(icon);
+        div.appendChild(p1);
+
+        return (div);
+    }
+    return { name, picture, city, country, tagline, price, getUserCardDOM, getScoreCardDOM }
 }
 function mediaFactory(data, nom) {
-    const { title, image, video, likes } = data;
+    const { id, title, image, video, likes } = data;
     let picture = "";
     if (image !== undefined) {
         picture = `assets/photographers/${nom}/${image}`;
@@ -84,7 +100,7 @@ function mediaFactory(data, nom) {
             const source = document.createElement('source');
             source.setAttribute("src", picture);
             source.setAttribute("type", "video/mp4")
-            vd.setAttribute("controls", "");
+            vd.setAttribute("disablePictureInPicture", "");
             vd.textContent = "La vidéo n'est pas supporter par le navigateur."
             vd.appendChild(source);
             div.appendChild(vd);
@@ -93,6 +109,7 @@ function mediaFactory(data, nom) {
             div.appendChild(img);
         }
         p.textContent = title;
+        div.setAttribute('data-id', id)
         div.appendChild(p);
         aime.setAttribute("class", "likes");
         aime.textContent = likes;
@@ -101,33 +118,5 @@ function mediaFactory(data, nom) {
         div.appendChild(aime);
         return (div);
     }
-    function getGalerieDOM() {
-        const img = document.createElement('img');
-        const vd = document.createElement('video');
-        const div = document.createElement('div');
-        const p = document.createElement('p');
-        const aime = document.createElement('p');
-        const icon = document.createElement('i');
-        if (picture.endsWith(".mp4")) {
-            const source = document.createElement('source');
-            source.setAttribute("src", picture);
-            source.setAttribute("type", "video/mp4")
-            vd.setAttribute("controls", "");
-            vd.textContent = "La vidéo n'est pas supporter par le navigateur."
-            vd.appendChild(source);
-            div.appendChild(vd);
-        } else {
-            img.setAttribute("src", picture);
-            div.appendChild(img);
-        }
-        p.textContent = title;
-        div.appendChild(p);
-        aime.setAttribute("class", "likes");
-        aime.textContent = likes;
-        icon.setAttribute('class', 'fa-solid fa-heart');
-        aime.appendChild(icon);
-        div.appendChild(aime);
-        return (div);
-    }
-    return { picture, title, likes, getMediaDOM, getGalerieDOM }
+    return { picture, title, likes, getMediaDOM }
 }

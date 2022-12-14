@@ -6,6 +6,8 @@
     height: 100%;
     display: none;
     align-content: center;
+    background-color: #e8e8e880;
+    z-index: 100;
 }
 
 .photograph-header {
@@ -27,10 +29,11 @@
     cursor: pointer;
 }
 
-.contact_button:hover{
+.contact_button:hover {
     background-color: #d3573c;
 }
-.contact_button:focus{
+
+.contact_button:focus {
     background-color: #d3573c;
 }
 
@@ -54,13 +57,15 @@
 .modal header img {
     cursor: pointer;
 }
+.modal header img:hover{
+    transform: scale(1.2);
+}
 
 .modal header h2 {
     font-size: 64px;
     font-weight: normal;
     text-align: center;
 }
-
 form {
     display: flex;
     width: 100%;
@@ -82,13 +87,21 @@ form div {
 }
 
 form input {
+    font-size: 28px;
     width: 100%;
     height: 68px;
     border: none;
     border-radius: 5px;
 }
+form textarea{
+    font-size: 28px;
+    width: 100%;
+    height: 150px;
+    border: none;
+    border-radius: 5px;
+}
 
-select{
+select {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -98,6 +111,7 @@ select{
     border-radius: 5px;
     cursor: pointer;
 }
+
 /*select:focus{
     background-color: #d3573c;
 }*/
@@ -109,4 +123,110 @@ select{
     height: 100%;
     display: none;
     align-content: center;
+}
+
+.score {
+    position: fixed;
+    z-index: 10;
+    right: 50px;
+    bottom: 0px;
+    background-color: #DB8876;
+    border-radius: 10px 10px 0 0;
+}
+
+.score div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 20px 10px 0;
+}
+
+.score div p {
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+#lightBox {
+    position: fixed;
+    z-index: 100;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #e8e8e880;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightBox div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: #901C1C;
+    border-radius: 10px;
+}
+
+#lightBox div .content {
+    display: flex;
+    flex-direction: row;
+    height: 650px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px;
+}
+
+#lightBox div .close {
+    margin: 20px;
+    margin-bottom: 0;
+    font-size: 32px;
+}
+
+#lightBox div .close:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+#lightBox div .next {
+    margin: 20px;
+    font-size: 32px;
+}
+
+#lightBox div .next:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+#lightBox div .previous {
+    margin: 20px;
+    font-size: 32px;
+}
+
+#lightBox div .previous:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+
+#lightBox div .content .imgLightBox {
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#lightBox div .content .videoLightBox {
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#lightBox div .titre {
+    font-size: 24px;
+    margin-bottom: 20px;
 }

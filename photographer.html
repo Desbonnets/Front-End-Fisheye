@@ -1,59 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/e1f96a0322.js" crossorigin="anonymous"></script>
-    <title>Fisheye - photographe </title>
-  </head>
-  <body>
-    <header>
-      <a href="./"><img src="assets/images/logo.png" class="logo" /></a>
-    </header>
-    <main id="main">
-      <div class="photograph-header">
+
+<head>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e1f96a0322.js" crossorigin="anonymous"></script>
+  <title>Fisheye - photographe </title>
+</head>
+
+<body>
+  <header>
+    <a href="./"><img src="assets/images/logo.png" class="logo" /></a>
+  </header>
+  <main id="main">
+    <div class="photograph-header">
+    </div>
+    <div class="photograph-media">
+      <div class="trie">
+        Trier par
+        <select id="Trie">
+          <option value="popularite">Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
       </div>
+    </div>
+    <div class="score"></div>
+    <div id="lightBox">
+      <div>
+        <div class="close">x</div>
+        <div class="content">
+          <div class="previous">&lt</div>
+          <img class="imgLightBox">
+          <video class="videoLightBox" type='video/mp4' controls>La vidéo n'est pas supporter par le navigateur.</video>
+          <div class="next">&gt</div>
+        </div>
+        <div class="titre"></div>
       </div>
-      <div class="photograph-media">
-        <div class="trie">
-          Trier par 
-          <select id="Trie">
-            <option value="popularite">Popularité</option>
-            <option value="date">Date</option>
-            <option value="titre">Titre</option>
-          </select>
-      </div>
-    </main>
-    <div id="galerie_modal">
-			<div class="modal">
+    </div>
+  </main>
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <h2>Contactez-moi</h2>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
-			</div>
-		</div>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-            <label>Nom</label>
-						<input />
-            <label>Email</label>
-						<input />
-            <label>Votre message</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="./scripts/pages/photographer.js"></script>
-    <script src="./scripts/utils/contactForm.js"></script>
-  </body>
+      </header>
+      <form id="Contact">
+        <div>
+          <label>Prénom</label>
+          <input type="text" id="prenom" required/>
+          <label>Nom</label>
+          <input type="text" id="nom" required/>
+          <label>Email</label>
+          <input type="email" id="email" required/>
+          <label>Votre message</label>
+          <textarea id="message" required></textarea>
+        </div>
+        <button class="contact_button" id="Envoyer" onclick="evoyerMessage()">Envoyer</button>
+      </form>
+    </div>
+  </div>
+  <script src="scripts/factories/photographer.js"></script>
+  <script src="./scripts/pages/photographer.js"></script>
+  <script src="./scripts/utils/lightBox.js"></script>
+  <script src="./scripts/utils/contactForm.js"></script>
+</body>
+
 </html>

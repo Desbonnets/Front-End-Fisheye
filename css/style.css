@@ -135,6 +135,10 @@ p {
     height: 350px;
 }
 
+.photograph-media section div:hover {
+    cursor: pointer;
+}
+
 .photograph-media section div p {
     color: #901C1C;
     font-size: 18px;
@@ -147,19 +151,22 @@ p {
     bottom: 26px;
     cursor: pointer;
 }
+
 .photograph-media section div .likes:hover {
     color: #D3573C;
 }
+
 .photograph-media section div .likes i {
     cursor: pointer;
     padding-left: 10px;
 }
+
 .photograph-media {
     margin: 0 100px;
     margin-top: 100px;
 }
 
-.photograph-media section{
+.photograph-media section {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 180px;

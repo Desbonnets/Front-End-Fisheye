@@ -44,6 +44,7 @@ async function eventHandler(event) {
 
         const photographersHeader = document.querySelector(".photograph-header");
         const photographersMedia = document.querySelector(".photograph-media");
+        const score = document.querySelector(".score");
         //const mediaGalerie = document.getElementById(".galerie_modal");
         const section = document.createElement('section');
         const photographerModel = photographerFactory(photographer);
@@ -58,6 +59,8 @@ async function eventHandler(event) {
             photographersMedia.appendChild(section);
             //mediaGalerie.appendChild(galerieDOM);
         });
+        const scoreCardDOM = photographerModel.getScoreCardDOM();
+        score.appendChild(scoreCardDOM);
     };
 
     async function init() {
@@ -83,12 +86,24 @@ async function eventHandler(event) {
         console.log(media2);
 
         await displayData(photograph, media2);
+        let lightbox = new lightBox(media2);
         //on l'ajout de likes au click
         const likes = document.querySelectorAll('.likes');
+        const scoreLikes = document.getElementById('scoreLikes');
+        let resultat = 0;
 
         likes.forEach(like => {
+            resultat += parseInt(like.innerText);
             like.addEventListener("click", () => addLikes(like));
         });
+        scoreLikes.textContent = resultat;
+
+        document.querySelectorAll('.photograph-media section div').forEach(lightboxDom => {
+            lightboxDom.addEventListener('click', (e) => {
+                lightbox.show(e.currentTarget.dataset.id);
+            })
+        })
+
     };
 
     // regex pour pouvoir récupérer les valeur digital
@@ -98,7 +113,9 @@ async function eventHandler(event) {
 
     //on l'ajout de likes au click
     function addLikes(like) {
+        const scoreLikes = document.getElementById('scoreLikes');
         let textReplace = like.innerHTML;
+        scoreLikes.textContent = parseInt(scoreLikes.textContent) + 1;
         textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) + 1);
         like.innerHTML = textReplace;
     }
@@ -173,14 +190,31 @@ async function eventHandler(event) {
         }
 
         const likes = document.querySelectorAll('.likes');
+        const scoreLikes = document.getElementById('scoreLikes');
+        let resultat = 0;
 
         likes.forEach(like => {
+            resultat += parseInt(like.innerText);
             like.addEventListener("click", () => addLikes(like));
         });
+        scoreLikes.textContent = resultat;
+        let lightbox = new lightBox(media2);
+        document.querySelectorAll('.photograph-media section div').forEach(lightboxDom => {
+            lightboxDom.addEventListener('click', (e) => {
+                lightbox.show(e.currentTarget.dataset.id);
+            })
+        })
 
     }
-    const btn = document.querySelector('.contact_button')
+    const btn = document.querySelector('.contact_button');
+    const btnEnvoyer = document.getElementById('Envoyer');
+    const form =document.getElementById('Contact');
 
     btn.addEventListener("click", displayModal);
+    btnEnvoyer.addEventListener('click', evoyerMessage);
+
+    form.addEventListener("submit", function (event){
+    event.preventDefault();
+    }, false);
 }
 eventHandler();
