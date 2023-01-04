@@ -7,7 +7,9 @@ function photographersFactory(data) {
         const article = document.createElement('article');
         const img = document.createElement('img');
         img.setAttribute("src", picture);
+        img.setAttribute("alt", "Photo de "+name);
         img.setAttribute("class", "portrait");
+        const div = document.createElement('div');
         const a = document.createElement('a');
         a.setAttribute("href", "./photographer.html?" + name)
         const h2 = document.createElement('h2');
@@ -21,13 +23,14 @@ function photographersFactory(data) {
         p.setAttribute("class", "lieu");
         p1.setAttribute("class", "tagline");
         p2.setAttribute("class", "prix");
-        article.appendChild(a);
-        a.appendChild(img);
-        a.appendChild(h2);
+        div.appendChild(img);
+        div.appendChild(h2);
+        article.appendChild(div);
         article.appendChild(p);
         article.appendChild(p1);
         article.appendChild(p2);
-        return (article);
+        a.appendChild(article);
+        return (a);
     }
     return { name, picture, city, country, tagline, price, getUserCardDOM }
 }
@@ -42,7 +45,7 @@ function photographerFactory(data) {
         const btn = document.createElement('button')
         const div = document.createElement('div')
         img.setAttribute("src", picture);
-        img.setAttribute("alt", name);
+        img.setAttribute("alt", "Photo de "+name);
         img.setAttribute("class", "portrait");
         btn.setAttribute("class", "contact_button");
         btn.textContent = "Contactez-moi";
@@ -93,29 +96,38 @@ function mediaFactory(data, nom) {
         const img = document.createElement('img');
         const vd = document.createElement('video');
         const div = document.createElement('div');
+        const divInputCheck = document.createElement('div');
+        const divInputContent = document.createElement('div');
         const p = document.createElement('p');
-        const aime = document.createElement('p');
+        const aime = document.createElement('input');
         const icon = document.createElement('i');
         if (picture.endsWith(".mp4")) {
             const source = document.createElement('source');
             source.setAttribute("src", picture);
             source.setAttribute("type", "video/mp4")
+            source.setAttribute("alt", "Video de "+title);
             vd.setAttribute("disablePictureInPicture", "");
             vd.textContent = "La vidéo n'est pas supporter par le navigateur."
             vd.appendChild(source);
             div.appendChild(vd);
         } else {
             img.setAttribute("src", picture);
+            img.setAttribute("alt", "Image de "+title);
             div.appendChild(img);
         }
         p.textContent = title;
+        div.setAttribute('id', "photo")
         div.setAttribute('data-id', id)
         div.appendChild(p);
-        aime.setAttribute("class", "likes");
-        aime.textContent = likes;
+        aime.setAttribute('type', 'checkbox');
+        divInputCheck.setAttribute('class', 'inputCheckLikes');
+        divInputCheck.appendChild(aime);
+        divInputCheck.appendChild(divInputContent);
+        divInputContent.setAttribute("class", "likes");
+        divInputContent.textContent = likes;
         icon.setAttribute('class', 'fa-solid fa-heart');
-        aime.appendChild(icon);
-        div.appendChild(aime);
+        divInputContent.appendChild(icon);
+        div.appendChild(divInputCheck);
         return (div);
     }
     return { picture, title, likes, getMediaDOM }

@@ -35,9 +35,10 @@ h1 {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
     margin-top: 100px;
+    margin-bottom: 100px;
 }
 
-.photographer_section article {
+.photographer_section a article {
     justify-self: center;
     display: flex;
     justify-content: center;
@@ -46,27 +47,34 @@ h1 {
     width: 400px;
 }
 
-.photographer_section article a h2 {
+.photographer_section a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.photographer_section a article div h2 {
     color: #D3573C;
     font-size: 36px;
     margin-bottom: 5px;
 }
 
-.photographer_section article a img {
+.photographer_section a article div img {
     height: 200px;
     width: 200px;
 }
 
-.photographer_section article a {
+.photographer_section a article div {
     justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    text-decoration: none;
 }
 
-.photographer_section article:hover {
+.photographer_section a article:hover {
     border-radius: 5%;
     background-color: #f8f8f8;
     transform: scale(1.05);
@@ -117,7 +125,7 @@ p {
     align-items: center;
 }
 
-.photograph-media section div img {
+.photograph-media section #photo img {
     height: 100%;
     width: 100%;
     border-radius: 2%;
@@ -125,38 +133,30 @@ p {
     object-position: center;
 }
 
-.photograph-media section div video {
+.photograph-media section #photo video {
     height: 100%;
     width: 100%;
 }
 
-.photograph-media section div {
+.photograph-media section #photo {
     width: 350px;
     height: 350px;
 }
 
-.photograph-media section div:hover {
+.photograph-media section #photo:hover {
     cursor: pointer;
 }
 
-.photograph-media section div p {
+.photograph-media section #photo {
     color: #901C1C;
     font-size: 18px;
 }
 
-.photograph-media section div .likes {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    bottom: 26px;
-    cursor: pointer;
-}
-
-.photograph-media section div .likes:hover {
+.photograph-media section #photo .inputCheckLikes .likes:hover {
     color: #D3573C;
 }
 
-.photograph-media section div .likes i {
+.photograph-media section #photo .inputCheckLikes .likes i {
     cursor: pointer;
     padding-left: 10px;
 }

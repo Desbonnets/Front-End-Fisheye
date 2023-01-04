@@ -14,5 +14,5 @@ function evoyerMessage(event){
     const email = document.getElementById("email");
     const message = document.getElementById("message");
 
-    console.log("Prénom = "+prenom.value + "| Nom = "+nom.value+"| email = "+email.value+"| message = "+message.value);
+    console.log("Prénom = "+prenom.value + "| Nom = "+nom.value+"| Email = "+email.value+"| Message = "+message.value);
 }

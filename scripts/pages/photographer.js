@@ -88,20 +88,32 @@ async function eventHandler(event) {
         await displayData(photograph, media2);
         let lightbox = new lightBox(media2);
         //on l'ajout de likes au click
-        const likes = document.querySelectorAll('.likes');
+        const likes = document.querySelectorAll('.inputCheckLikes');
         const scoreLikes = document.getElementById('scoreLikes');
         let resultat = 0;
 
         likes.forEach(like => {
-            resultat += parseInt(like.innerText);
-            like.addEventListener("click", () => addLikes(like));
+            resultat += parseInt(like.querySelector('.likes').innerText);
+            like.querySelector('input').addEventListener("change", function() {
+                if(this.checked){
+                    addLikes(like.querySelector('.likes'))
+                }else{
+                    removeLikes(like.querySelector('.likes'))
+                }
+                });
         });
         scoreLikes.textContent = resultat;
 
-        document.querySelectorAll('.photograph-media section div').forEach(lightboxDom => {
-            lightboxDom.addEventListener('click', (e) => {
-                lightbox.show(e.currentTarget.dataset.id);
-            })
+        document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
+            if(lightboxDom.querySelector('img')){
+                lightboxDom.querySelector('img').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }else{
+                lightboxDom.querySelector('video').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }
         })
 
     };
@@ -120,6 +132,15 @@ async function eventHandler(event) {
         like.innerHTML = textReplace;
     }
 
+    //on supprime de likes au click
+    function removeLikes(like) {
+        const scoreLikes = document.getElementById('scoreLikes');
+        let textReplace = like.innerHTML;
+        scoreLikes.textContent = parseInt(scoreLikes.textContent) - 1;
+        textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) - 1);
+        like.innerHTML = textReplace;
+    }
+
     const selectTrie = document.getElementById('Trie');
 
     selectTrie.addEventListener("change", newTrie);
@@ -132,7 +153,6 @@ async function eventHandler(event) {
         const sectionAll = document.querySelector("section");
         photographersMedia.removeChild(sectionAll);
         const section = document.createElement('section');
-        console.log(photographersMedia);
         let photograph;
         let media2 = [];
         photographers.forEach((photographer) => {
@@ -189,23 +209,32 @@ async function eventHandler(event) {
             });
         }
 
-        const likes = document.querySelectorAll('.likes');
+        const likes = document.querySelectorAll('.inputCheckLikes');
         const scoreLikes = document.getElementById('scoreLikes');
         let resultat = 0;
 
         likes.forEach(like => {
-            resultat += parseInt(like.innerText);
-            like.addEventListener("click", () => addLikes(like));
+            resultat += parseInt(like.querySelector('.likes').innerText);
+            like.querySelector('input').addEventListener("change", () => addLikes(like.querySelector('.likes')));
         });
+
         scoreLikes.textContent = resultat;
+
         let lightbox = new lightBox(media2);
-        document.querySelectorAll('.photograph-media section div').forEach(lightboxDom => {
-            lightboxDom.addEventListener('click', (e) => {
-                lightbox.show(e.currentTarget.dataset.id);
-            })
+        document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
+            if(lightboxDom.querySelector('img')){
+                lightboxDom.querySelector('img').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }else{
+                lightboxDom.querySelector('video').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }
         })
 
     }
+
     const btn = document.querySelector('.contact_button');
     const btnEnvoyer = document.getElementById('Envoyer');
     const form =document.getElementById('Contact');
