@@ -48,6 +48,8 @@ function photographerFactory(data) {
         img.setAttribute("alt", "Photo de "+name);
         img.setAttribute("class", "portrait");
         btn.setAttribute("class", "contact_button");
+        btn.setAttribute("data-toggle", "modal");
+        btn.setAttribute("data-target", "#contact_modal");
         btn.textContent = "Contactez-moi";
         const h1 = document.createElement('h1');
         h1.textContent = name;
@@ -104,7 +106,6 @@ function mediaFactory(data, nom) {
         if (picture.endsWith(".mp4")) {
             const source = document.createElement('source');
             source.setAttribute("src", picture);
-            source.setAttribute("type", "video/mp4")
             source.setAttribute("alt", "Video de "+title);
             vd.setAttribute("disablePictureInPicture", "");
             vd.textContent = "La vidéo n'est pas supporter par le navigateur."

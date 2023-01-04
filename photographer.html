@@ -12,8 +12,7 @@
 
 <body>
   <header>
-    <a href="./" aria-details="Lien de la page d'accueil" accesskey="a"><img src="assets/images/logo.png" class="logo"
-        alt="Logo Fisheye" /></a>
+    <a href="./"><img src="assets/images/logo.png" class="logo" alt="Logo Fisheye" /></a>
   </header>
   <main id="main">
     <div class="photograph-header">
@@ -33,20 +32,20 @@
       <div>
         <div class="close">x</div>
         <div class="content">
-          <div class="previous">&lt</div>
+          <div class="previous">&lt;</div>
           <img class="imgLightBox">
-          <video class="videoLightBox" type='video/mp4' controls>La vidéo n'est pas supporter par le navigateur.</video>
-          <div class="next">&gt</div>
+          <video class="videoLightBox" controls>La vidéo n'est pas supporter par le navigateur.</video>
+          <div class="next">&gt;</div>
         </div>
         <div class="titre"></div>
       </div>
     </div>
   </main>
-  <div id="contact_modal">
+  <div id="contact_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" alt="Fermer" onclick="closeModal()" />
       </header>
       <form id="Contact">
         <div>
