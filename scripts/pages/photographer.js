@@ -1,4 +1,6 @@
 async function eventHandler(event) {
+
+    //retourne les photographes en json
     async function getPhotographers() {
         // Penser à remplacer par les données récupérées dans le json
         let photographers = [];
@@ -10,15 +12,15 @@ async function eventHandler(event) {
                 return response.json();
             })
             .then(json => {
-                //console.dir(json);
                 photographers = json["photographers"];
-                //console.log(photographers);
             })
 
         // et bien retourner le tableau photographers seulement une fois
 
         return photographers;
     }
+
+    //retourne les photo et video en json
     async function getMedia() {
         // Penser à remplacer par les données récupérées dans le json
         let media = [];
@@ -40,27 +42,34 @@ async function eventHandler(event) {
         return media;
     }
 
+    //affiche les données
     async function displayData(photographer, media) {
 
         const photographersHeader = document.querySelector(".photograph-header");
         const photographersMedia = document.querySelector(".photograph-media");
         const score = document.querySelector(".score");
-        //const mediaGalerie = document.getElementById(".galerie_modal");
+
         const section = document.createElement('section');
+
+        //on récupere les elements pour l'affichage du profil du photographe
         const photographerModel = photographerFactory(photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
+
         photographersHeader.appendChild(userCardDOM);
+
         //on affiche tous les media d'un photographe
         media.forEach((media1) => {
             const mediaModel = mediaFactory(media1, photographer['name']);
             const mediaDOM = mediaModel.getMediaDOM();
-            //const galerieDOM = mediaModel.getGalerieDOM();
+
             section.appendChild(mediaDOM)
             photographersMedia.appendChild(section);
-            //mediaGalerie.appendChild(galerieDOM);
         });
+
+        //on innitialise le score de likes du photographe
         const scoreCardDOM = photographerModel.getScoreCardDOM();
         score.appendChild(scoreCardDOM);
+
     };
 
     async function init() {
@@ -82,12 +91,26 @@ async function eventHandler(event) {
             }
         });
 
-        console.log(photograph);
-        console.log(media2);
-
+        //l'affichage des données
         await displayData(photograph, media2);
+        
+        // initialise la lightbox
         let lightbox = new lightBox(media2);
-        //on l'ajout de likes au click
+
+        //initialise l'envenement d'affichage au click (sur une photo)
+        document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
+            if(lightboxDom.querySelector('img')){
+                lightboxDom.querySelector('img').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }else{
+                lightboxDom.querySelector('video').addEventListener('click', (e) => {
+                    lightbox.show(e.currentTarget.parentNode.dataset.id);
+                })
+            }
+        });
+
+        //on ajout l'evenement click aux l'elements likes de chaque photo
         const likes = document.querySelectorAll('.inputCheckLikes');
         const scoreLikes = document.getElementById('scoreLikes');
         let resultat = 0;
@@ -102,19 +125,8 @@ async function eventHandler(event) {
                 }
                 });
         });
+        //on rafraîchi le score
         scoreLikes.textContent = resultat;
-
-        document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
-            if(lightboxDom.querySelector('img')){
-                lightboxDom.querySelector('img').addEventListener('click', (e) => {
-                    lightbox.show(e.currentTarget.parentNode.dataset.id);
-                })
-            }else{
-                lightboxDom.querySelector('video').addEventListener('click', (e) => {
-                    lightbox.show(e.currentTarget.parentNode.dataset.id);
-                })
-            }
-        })
 
     };
 
@@ -123,7 +135,7 @@ async function eventHandler(event) {
 
     await init();
 
-    //on l'ajout de likes au click
+    //on l'ajout un likes si on coche la checkbox
     function addLikes(like) {
         const scoreLikes = document.getElementById('scoreLikes');
         let textReplace = like.innerHTML;
@@ -132,7 +144,7 @@ async function eventHandler(event) {
         like.innerHTML = textReplace;
     }
 
-    //on supprime de likes au click
+    //on supprime un likes si on décoche la checkbox
     function removeLikes(like) {
         const scoreLikes = document.getElementById('scoreLikes');
         let textReplace = like.innerHTML;
@@ -141,100 +153,12 @@ async function eventHandler(event) {
         like.innerHTML = textReplace;
     }
 
+    //initialise le tri
     const selectTrie = document.getElementById('Trie');
 
     selectTrie.addEventListener("change", newTrie);
 
-    async function newTrie() {
-
-        const photographers = await getPhotographers();
-        const media = await getMedia();
-        const photographersMedia = document.querySelector(".photograph-media");
-        const sectionAll = document.querySelector("section");
-        photographersMedia.removeChild(sectionAll);
-        const section = document.createElement('section');
-        let photograph;
-        let media2 = [];
-        photographers.forEach((photographer) => {
-            let name = photographer['name'].replace(' ', '%20');
-            if (location.search == '?' + name) {
-                photograph = photographer;
-                media.forEach((media1) => {
-                    if (media1['photographerId'] == photographer['id']) {
-                        media2.push(media1);
-                    }
-                });
-            }
-        });
-
-        if (selectTrie.value == "titre") {
-            const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
-            const sortBySensitivity = sensitivity => (a, b) => a.localeCompare(b, undefined, { sensitivity });
-            const byBase = sortBySensitivity('base');
-            const toTitle = e => e['title'];
-            const byTitle = sortByMapped(toTitle, byBase)
-            console.log([...media2].sort(byTitle));
-            media2 = media2.sort(byTitle);
-            media2.forEach((media1) => {
-                const mediaModel = mediaFactory(media1, photograph['name']);
-                const mediaDOM = mediaModel.getMediaDOM();
-                section.appendChild(mediaDOM)
-                photographersMedia.appendChild(section);
-            });
-        } else if (selectTrie.value == "date") {
-            const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
-            const byValue = (a, b) => a - b;
-            const toDate = e => new Date(e['date']);
-            const byDate = sortByMapped(toDate, byValue)
-            console.log([...media2].sort(byDate));
-            media2 = media2.sort(byDate);
-            media2.forEach((media1) => {
-                const mediaModel = mediaFactory(media1, photograph['name']);
-                const mediaDOM = mediaModel.getMediaDOM();
-                section.appendChild(mediaDOM)
-                photographersMedia.appendChild(section);
-            });
-        } else if (selectTrie.value == "popularite") {
-            const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
-            const byValue = (a, b) => a - b;
-            const toLikes = e => e['likes'];
-            const byLikes = sortByMapped(toLikes, byValue)
-            console.log([...media2].sort(byLikes));
-            media2 = media2.sort(byLikes);
-            media2.forEach((media1) => {
-                const mediaModel = mediaFactory(media1, photograph['name']);
-                const mediaDOM = mediaModel.getMediaDOM();
-                section.appendChild(mediaDOM)
-                photographersMedia.appendChild(section);
-            });
-        }
-
-        const likes = document.querySelectorAll('.inputCheckLikes');
-        const scoreLikes = document.getElementById('scoreLikes');
-        let resultat = 0;
-
-        likes.forEach(like => {
-            resultat += parseInt(like.querySelector('.likes').innerText);
-            like.querySelector('input').addEventListener("change", () => addLikes(like.querySelector('.likes')));
-        });
-
-        scoreLikes.textContent = resultat;
-
-        let lightbox = new lightBox(media2);
-        document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
-            if(lightboxDom.querySelector('img')){
-                lightboxDom.querySelector('img').addEventListener('click', (e) => {
-                    lightbox.show(e.currentTarget.parentNode.dataset.id);
-                })
-            }else{
-                lightboxDom.querySelector('video').addEventListener('click', (e) => {
-                    lightbox.show(e.currentTarget.parentNode.dataset.id);
-                })
-            }
-        })
-
-    }
-
+    // initialise l'envoie de contact
     const btn = document.querySelector('.contact_button');
     const btnEnvoyer = document.getElementById('Envoyer');
     const form =document.getElementById('Contact');
@@ -245,5 +169,6 @@ async function eventHandler(event) {
     form.addEventListener("submit", function (event){
     event.preventDefault();
     }, false);
+
 }
 eventHandler();
