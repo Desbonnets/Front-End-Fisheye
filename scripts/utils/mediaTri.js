@@ -1,25 +1,13 @@
-async function newTrie() {
+// regex pour pouvoir récupérer les valeur digital
+const Regex = /([\d]*)/;
+
+async function newTrie(media2, photograph) {
 
     const selectTrie = document.getElementById('Trie');
-    const photographers = await getPhotographers();
-    const media = await getMedia();
     const photographersMedia = document.querySelector(".photograph-media");
     const sectionAll = document.querySelector("section");
     photographersMedia.removeChild(sectionAll);
     const section = document.createElement('section');
-    let photograph;
-    let media2 = [];
-    photographers.forEach((photographer) => {
-        let name = photographer['name'].replace(' ', '%20');
-        if (location.search == '?' + name) {
-            photograph = photographer;
-            media.forEach((media1) => {
-                if (media1['photographerId'] == photographer['id']) {
-                    media2.push(media1);
-                }
-            });
-        }
-    });
 
     if (selectTrie.value == "titre") {
         const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
@@ -65,13 +53,19 @@ async function newTrie() {
 
     //on ajout l'evenement click aux l'elements likes de chaque photo
     const likes = document.querySelectorAll('.inputCheckLikes');
-    const scoreLikes = document.getElementById('scoreLikes');
-    let resultat = 0;
+        const scoreLikes = document.getElementById('scoreLikes');
+        let resultat = 0;
 
-    likes.forEach(like => {
-        resultat += parseInt(like.querySelector('.likes').innerText);
-        like.querySelector('input').addEventListener("change", () => addLikes(like.querySelector('.likes')));
-    });
+        likes.forEach(like => {
+            resultat += parseInt(like.querySelector('.likes').innerText);
+            like.querySelector('input').addEventListener("change", function() {
+                if(this.checked){
+                    addLikes(like.querySelector('.likes'))
+                }else{
+                    removeLikes(like.querySelector('.likes'))
+                }
+                });
+        });
 
     //on rafraîchi le score
     scoreLikes.textContent = resultat;
@@ -92,4 +86,22 @@ async function newTrie() {
         }
     })
 
+}
+
+//on l'ajout un likes si on coche la checkbox
+function addLikes(like) {
+    const scoreLikes = document.getElementById('scoreLikes');
+    let textReplace = like.innerHTML;
+    scoreLikes.textContent = parseInt(scoreLikes.textContent) + 1;
+    textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) + 1);
+    like.innerHTML = textReplace;
+}
+
+//on supprime un likes si on décoche la checkbox
+function removeLikes(like) {
+    const scoreLikes = document.getElementById('scoreLikes');
+    let textReplace = like.innerHTML;
+    scoreLikes.textContent = parseInt(scoreLikes.textContent) - 1;
+    textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) - 1);
+    like.innerHTML = textReplace;
 }

@@ -72,12 +72,14 @@ async function eventHandler(event) {
 
     };
 
+    let media2 = [];
+    let photograph;
+
     async function init() {
         // Récupère les datas des photographes
         const photographers = await getPhotographers();
         const media = await getMedia();
-        let photograph;
-        let media2 = [];
+        
         //on récupère tous les media d'un photographe
         photographers.forEach((photographer) => {
             let name = photographer['name'].replace(' ', '%20');
@@ -110,53 +112,16 @@ async function eventHandler(event) {
             }
         });
 
-        //on ajout l'evenement click aux l'elements likes de chaque photo
-        const likes = document.querySelectorAll('.inputCheckLikes');
-        const scoreLikes = document.getElementById('scoreLikes');
-        let resultat = 0;
-
-        likes.forEach(like => {
-            resultat += parseInt(like.querySelector('.likes').innerText);
-            like.querySelector('input').addEventListener("change", function() {
-                if(this.checked){
-                    addLikes(like.querySelector('.likes'))
-                }else{
-                    removeLikes(like.querySelector('.likes'))
-                }
-                });
-        });
-        //on rafraîchi le score
-        scoreLikes.textContent = resultat;
-
+        //initialise le tri
+        newTrie(media2,photograph);
     };
-
-    // regex pour pouvoir récupérer les valeur digital
-    const Regex = /([\d]*)/;
 
     await init();
 
-    //on l'ajout un likes si on coche la checkbox
-    function addLikes(like) {
-        const scoreLikes = document.getElementById('scoreLikes');
-        let textReplace = like.innerHTML;
-        scoreLikes.textContent = parseInt(scoreLikes.textContent) + 1;
-        textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) + 1);
-        like.innerHTML = textReplace;
-    }
-
-    //on supprime un likes si on décoche la checkbox
-    function removeLikes(like) {
-        const scoreLikes = document.getElementById('scoreLikes');
-        let textReplace = like.innerHTML;
-        scoreLikes.textContent = parseInt(scoreLikes.textContent) - 1;
-        textReplace = textReplace.replace(Regex, parseInt(like.textContent, 10) - 1);
-        like.innerHTML = textReplace;
-    }
-
-    //initialise le tri
+    //le tri au changement de valeur
     const selectTrie = document.getElementById('Trie');
 
-    selectTrie.addEventListener("change", newTrie);
+    selectTrie.addEventListener("change", () => newTrie(media2, photograph));
 
     // initialise l'envoie de contact
     const btn = document.querySelector('.contact_button');
