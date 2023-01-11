@@ -1,15 +1,15 @@
 // regex pour pouvoir récupérer les valeur digital
 const Regex = /([\d]*)/;
 
-async function newTrie(media2, photograph) {
+async function newTri(media2, photograph) {
 
-    const selectTrie = document.getElementById('Trie');
+    const selectTri = document.getElementById('Tri');
     const photographersMedia = document.querySelector(".photograph-media");
     const sectionAll = document.querySelector("section");
     photographersMedia.removeChild(sectionAll);
     const section = document.createElement('section');
 
-    if (selectTrie.value == "titre") {
+    if (selectTri.value == "titre") {
         const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
         const sortBySensitivity = sensitivity => (a, b) => a.localeCompare(b, undefined, { sensitivity });
         const byBase = sortBySensitivity('base');
@@ -23,7 +23,7 @@ async function newTrie(media2, photograph) {
             section.appendChild(mediaDOM)
             photographersMedia.appendChild(section);
         });
-    } else if (selectTrie.value == "date") {
+    } else if (selectTri.value == "date") {
         const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
         const byValue = (a, b) => a - b;
         const toDate = e => new Date(e['date']);
@@ -36,7 +36,7 @@ async function newTrie(media2, photograph) {
             section.appendChild(mediaDOM)
             photographersMedia.appendChild(section);
         });
-    } else if (selectTrie.value == "popularite") {
+    } else if (selectTri.value == "popularite") {
         const sortByMapped = (map, compareFn) => (a, b) => compareFn(map(a), map(b));
         const byValue = (a, b) => a - b;
         const toLikes = e => e['likes'];
@@ -53,19 +53,19 @@ async function newTrie(media2, photograph) {
 
     //on ajout l'evenement click aux l'elements likes de chaque photo
     const likes = document.querySelectorAll('.inputCheckLikes');
-        const scoreLikes = document.getElementById('scoreLikes');
-        let resultat = 0;
+    const scoreLikes = document.getElementById('scoreLikes');
+    let resultat = 0;
 
-        likes.forEach(like => {
-            resultat += parseInt(like.querySelector('.likes').innerText);
-            like.querySelector('input').addEventListener("change", function() {
-                if(this.checked){
-                    addLikes(like.querySelector('.likes'))
-                }else{
-                    removeLikes(like.querySelector('.likes'))
-                }
-                });
+    likes.forEach(like => {
+        resultat += parseInt(like.querySelector('.likes').innerText);
+        like.querySelector('input').addEventListener("change", function () {
+            if (this.checked) {
+                addLikes(like.querySelector('.likes'))
+            } else {
+                removeLikes(like.querySelector('.likes'))
+            }
         });
+    });
 
     //on rafraîchi le score
     scoreLikes.textContent = resultat;

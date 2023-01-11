@@ -79,7 +79,7 @@ async function eventHandler(event) {
         // Récupère les datas des photographes
         const photographers = await getPhotographers();
         const media = await getMedia();
-        
+
         //on récupère tous les media d'un photographe
         photographers.forEach((photographer) => {
             let name = photographer['name'].replace(' ', '%20');
@@ -95,17 +95,17 @@ async function eventHandler(event) {
 
         //l'affichage des données
         await displayData(photograph, media2);
-        
+
         // initialise la lightbox
         let lightbox = new lightBox(media2);
 
         //initialise l'envenement d'affichage au click (sur une photo)
         document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
-            if(lightboxDom.querySelector('img')){
+            if (lightboxDom.querySelector('img')) {
                 lightboxDom.querySelector('img').addEventListener('click', (e) => {
                     lightbox.show(e.currentTarget.parentNode.dataset.id);
                 })
-            }else{
+            } else {
                 lightboxDom.querySelector('video').addEventListener('click', (e) => {
                     lightbox.show(e.currentTarget.parentNode.dataset.id);
                 })
@@ -113,26 +113,26 @@ async function eventHandler(event) {
         });
 
         //initialise le tri
-        newTrie(media2,photograph);
+        newTri(media2, photograph);
     };
 
     await init();
 
     //le tri au changement de valeur
-    const selectTrie = document.getElementById('Trie');
+    const selectTri = document.getElementById('Tri');
 
-    selectTrie.addEventListener("change", () => newTrie(media2, photograph));
+    selectTri.addEventListener("change", () => newTri(media2, photograph));
 
     // initialise l'envoie de contact
     const btn = document.querySelector('.contact_button');
     const btnEnvoyer = document.getElementById('Envoyer');
-    const form =document.getElementById('Contact');
+    const form = document.getElementById('Contact');
 
     btn.addEventListener("click", displayModal);
-    btnEnvoyer.addEventListener('click', evoyerMessage);
+    btnEnvoyer.addEventListener('click', envoyerMessage);
 
-    form.addEventListener("submit", function (event){
-    event.preventDefault();
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
     }, false);
 
 }

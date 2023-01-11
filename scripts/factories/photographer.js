@@ -21,9 +21,10 @@ function photographersFactory(data) {
         p1.setAttribute("class", "tagline");
         p2.setAttribute("class", "prix");
         img.setAttribute("src", picture);
-        img.setAttribute("alt", "Photo de "+name);
+        img.setAttribute("alt", "Photo de " + name);
         img.setAttribute("class", "portrait");
         a.setAttribute("href", "./photographer.html?" + name);
+        a.setAttribute("aria-label", "Lien vers la pages de " + name);
 
         //Ajout du contenu dans les elements
         h2.textContent = name;
@@ -64,13 +65,14 @@ function photographerFactory(data) {
 
         //ajouter les attributs de chaque elements
         img.setAttribute("src", picture);
-        img.setAttribute("alt", "Photo de "+name);
+        img.setAttribute("alt", "Photo de " + name);
         img.setAttribute("class", "portrait");
         btn.setAttribute("class", "contact_button");
         btn.setAttribute("data-toggle", "modal");
         btn.setAttribute("data-target", "#contact_modal");
         p.setAttribute("class", "lieu");
         p1.setAttribute("class", "description");
+        btn.setAttribute('aria-label', 'Contacter-moi mon cher');
 
         //Ajout du contenu dans les elements
         btn.textContent = "Contactez-moi";
@@ -144,7 +146,8 @@ function mediaFactory(data, nom) {
 
             //ajouter les attributs de chaque elements
             source.setAttribute("src", picture);
-            source.setAttribute("alt", "Video de "+title);
+            source.setAttribute("role", "img");
+            source.setAttribute("alt", "Video de " + title);
             vd.setAttribute("disablePictureInPicture", "");
 
             //Ajout du contenu dans les elements
@@ -157,7 +160,7 @@ function mediaFactory(data, nom) {
         } else {
             //ajouter les attributs de chaque elements
             img.setAttribute("src", picture);
-            img.setAttribute("alt", "Image de "+title);
+            img.setAttribute("alt", "Image de " + title);
 
             //organisation (parents/enfants) des elements
             div.appendChild(img);

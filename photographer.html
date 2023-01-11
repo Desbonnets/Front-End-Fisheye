@@ -12,15 +12,16 @@
 
 <body>
   <header>
-    <a href="./"><img src="assets/images/logo.png" class="logo" alt="Logo Fisheye" /></a>
+    <a href="./" aria-label="Retour vers l'accueil"><img src="assets/images/logo.png" class="logo"
+        alt="Logo Fisheye" /></a>
   </header>
-  <main id="main">
+  <main id="main" aria-hidden="false" aria-disabled="false">
     <div class="photograph-header">
     </div>
     <div class="photograph-media">
       <div class="trie">
-        Trier par
-        <select id="Trie">
+        <label for="Tri">Trier par:</label>
+        <select id="Tri" name="tri">
           <option value="popularite">Popularité</option>
           <option value="date">Date</option>
           <option value="titre">Titre</option>
@@ -28,37 +29,46 @@
       </div>
     </div>
     <div class="score"></div>
-    <div id="lightBox">
-      <div>
-        <div class="close">x</div>
-        <div class="content">
-          <div class="previous">&lt;</div>
-          <img class="imgLightBox" src="assets/photographers" alt="Photo">
-          <video class="videoLightBox" controls>La vidéo n'est pas supporter par le navigateur.</video>
-          <div class="next">&gt;</div>
-        </div>
-        <div class="titre"></div>
-      </div>
-    </div>
   </main>
-  <div id="contact_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div id="lightBox" role="dialog" aria-label="lightbox" aria-hidden="true" aria-disabled="true">
+    <div role=”navigation”>
+      <div tabindex="0" class="close">x</div>
+      <div class="content" role="navigation">
+        <div tabindex="0" class="previous">&lt;</div>
+        <img class="imgLightBox" src="assets/photographers" alt="Photo">
+        <video class="videoLightBox" controls>La vidéo n'est pas supporter par le navigateur.</video>
+        <div tabindex="0" class="next">&gt;</div>
+      </div>
+      <div class="titre"></div>
+    </div>
+  </div>
+  <div id="contact_modal" role="dialog" aria-hidden="true" aria-disabled="true">
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" alt="Fermer" onclick="closeModal()" />
+        <img tabindex="0" id="close" src="assets/icons/close.svg" alt="Fermer la modal de contact" role="button"
+          onclick="closeModal()" />
       </header>
       <form id="Contact">
-        <div>
-          <label>Prénom</label>
-          <input type="text" id="prenom" required />
-          <label>Nom</label>
-          <input type="text" id="nom" required />
-          <label>Email</label>
-          <input type="email" id="email" required />
-          <label>Votre message</label>
-          <textarea id="message" required></textarea>
+        <div role="group" aria-labelledby="coordonnees">
+          <div id="coordonnees"></div>
+          <label for="prenom">Prénom</label>
+          <input type="text" name="prenom" id="prenom" aria-required=true aria-errormessage="errPrenom" aria-invalid
+            required />
+          <span id="errPrenom" class="errormessage">Error: Enter votre prénom.</span>
+          <label for="nom">Nom</label>
+          <input type="text" name="nom" id="nom" aria-required=true aria-errormessage="errNom" aria-invalid required />
+          <span id="errNom" class="errormessage">Error: Enter votre nom.</span>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" aria-required=true aria-errormessage="errEmail" aria-invalid
+            required />
+          <span id="errEmail" class="errormessage">Error: Enter une adresse mail valid.</span>
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" aria-required=true aria-errormessage="errMessage" aria-invalid
+            required></textarea>
+          <span id="errMessage" class="errormessage">Error: Enter votre message.</span>
         </div>
-        <button class="contact_button" id="Envoyer" onclick="evoyerMessage()">Envoyer</button>
+        <button class="contact_button" id="Envoyer" onclick="envoyerMessage()">Envoyer</button>
       </form>
     </div>
   </div>
