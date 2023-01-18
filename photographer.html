@@ -30,43 +30,45 @@
     </div>
     <div class="score"></div>
   </main>
-  <div id="lightBox" role="dialog" aria-label="lightbox" aria-hidden="true" aria-disabled="true">
+  <div id="lightBox" role="dialog" aria-label="lightbox" aria-modal="true" aria-hidden="true">
     <div role=”navigation”>
-      <div tabindex="0" class="close">x</div>
+      <div tabindex="0" role="button" aria-label="boutton pour fermer la lightbox" class="close">x</div>
       <div class="content" role="navigation">
-        <div tabindex="0" class="previous">&lt;</div>
+        <div tabindex="0" role="button" aria-label="boutton pour revenir a l'image précédente" class="previous">&lt;
+        </div>
         <img class="imgLightBox" src="assets/photographers" alt="Photo">
         <video class="videoLightBox" controls>La vidéo n'est pas supporter par le navigateur.</video>
-        <div tabindex="0" class="next">&gt;</div>
+        <div tabindex="0" role="button" aria-label="boutton pour passer a l'image suivante" class="next">&gt;</div>
       </div>
       <div class="titre"></div>
     </div>
   </div>
-  <div id="contact_modal" role="dialog" aria-hidden="true" aria-disabled="true">
-    <div class="modal">
+  <div id="contact_modal" role="dialog" aria-labelledby="contact-title" aria-modal="true" aria-hidden="true"
+    tabindex="-1">
+    <div class="modal" role="document">
       <header>
-        <h2>Contactez-moi</h2>
-        <img tabindex="0" id="close" src="assets/icons/close.svg" alt="Fermer la modal de contact" role="button"
-          onclick="closeModal()" />
+        <h2 id="contact-title">Contactez-moi</h2>
+        <img tabindex="0" aria-label="Fermer" data-dismiss="dialog" id="closeContact" src="assets/icons/close.svg"
+          alt="Fermer la modal de contact" role="button" onclick="closeModal()" />
       </header>
       <form id="Contact">
         <div role="group" aria-labelledby="coordonnees">
           <div id="coordonnees"></div>
           <label for="prenom">Prénom</label>
-          <input type="text" name="prenom" id="prenom" aria-required=true aria-errormessage="errPrenom" aria-invalid
-            required />
-          <span id="errPrenom" class="errormessage">Error: Enter votre prénom.</span>
+          <input type="text" name="prenom" id="prenom" aria-required=true aria-errormessage="errPrenom" aria-invalid />
+          <span id="errPrenom" class="error" role="alert"></span>
           <label for="nom">Nom</label>
-          <input type="text" name="nom" id="nom" aria-required=true aria-errormessage="errNom" aria-invalid required />
-          <span id="errNom" class="errormessage">Error: Enter votre nom.</span>
+          <input type="text" name="nom" id="nom" aria-required=true aria-errormessage="errNom"
+            aria-describedby="errEmail" aria-invalid />
+          <span id="errNom" class="error" role="alert"></span>
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" aria-required=true aria-errormessage="errEmail" aria-invalid
-            required />
-          <span id="errEmail" class="errormessage">Error: Enter une adresse mail valid.</span>
+          <input type="email" name="email" id="email" aria-required=true aria-errormessage="errEmail"
+            aria-describedby="errEmail" aria-invalid />
+          <span id="errEmail" class="error" role="alert"></span>
           <label for="message">Votre message</label>
-          <textarea id="message" name="message" aria-required=true aria-errormessage="errMessage" aria-invalid
-            required></textarea>
-          <span id="errMessage" class="errormessage">Error: Enter votre message.</span>
+          <textarea id="message" name="message" aria-required=true aria-errormessage="errMessage"
+            aria-invalid></textarea>
+          <span id="errMessage" class="error" role="alert"></span>
         </div>
         <button class="contact_button" id="Envoyer" onclick="envoyerMessage()">Envoyer</button>
       </form>

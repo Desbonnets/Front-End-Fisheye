@@ -72,7 +72,7 @@ function photographerFactory(data) {
         btn.setAttribute("data-target", "#contact_modal");
         p.setAttribute("class", "lieu");
         p1.setAttribute("class", "description");
-        btn.setAttribute('aria-label', 'Contacter-moi mon cher');
+        btn.setAttribute('aria-label', 'Boutton pour me contacter');
 
         //Ajout du contenu dans les elements
         btn.textContent = "Contactez-moi";
@@ -148,6 +148,9 @@ function mediaFactory(data, nom) {
             source.setAttribute("src", picture);
             source.setAttribute("role", "img");
             source.setAttribute("alt", "Video de " + title);
+            source.setAttribute('tabindex', '0')
+            source.setAttribute('aria-label', "boutton pour agrandir la video.")
+            source.setAttribute('role', "button")
             vd.setAttribute("disablePictureInPicture", "");
 
             //Ajout du contenu dans les elements
@@ -161,6 +164,9 @@ function mediaFactory(data, nom) {
             //ajouter les attributs de chaque elements
             img.setAttribute("src", picture);
             img.setAttribute("alt", "Image de " + title);
+            img.setAttribute('tabindex', '0')
+            img.setAttribute('aria-label', "boutton pour agrandir l'image.")
+            img.setAttribute('role', "button")
 
             //organisation (parents/enfants) des elements
             div.appendChild(img);
@@ -170,6 +176,7 @@ function mediaFactory(data, nom) {
         div.setAttribute('id', "photo")
         div.setAttribute('data-id', id)
         aime.setAttribute('type', 'checkbox');
+        aime.setAttribute('aria-label', 'Mettre un like')
         divInputCheck.setAttribute('class', 'inputCheckLikes');
         divInputContent.setAttribute("class", "likes");
         icon.setAttribute('class', 'fa-solid fa-heart');

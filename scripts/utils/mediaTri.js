@@ -1,6 +1,12 @@
 // regex pour pouvoir récupérer les valeur digital
 const Regex = /([\d]*)/;
 
+const keyCodes = {
+    tab: 9,
+    enter: 13,
+    escape: 27,
+  };
+
 async function newTri(media2, photograph) {
 
     const selectTri = document.getElementById('Tri');
@@ -76,10 +82,20 @@ async function newTri(media2, photograph) {
     //initialise l'envenement d'affichage au click (sur une photo)
     document.querySelectorAll('.photograph-media section #photo').forEach(lightboxDom => {
         if (lightboxDom.querySelector('img')) {
+            lightboxDom.querySelector('img').addEventListener('keydown', (e) =>{
+                if (e.which === keyCodes.enter) {
+                  lightbox.show(e.currentTarget.parentNode.dataset.id);
+                }  
+              });
             lightboxDom.querySelector('img').addEventListener('click', (e) => {
                 lightbox.show(e.currentTarget.parentNode.dataset.id);
             })
         } else {
+            lightboxDom.querySelector('video').addEventListener('keydown', (e) =>{
+                if (e.which === keyCodes.enter) {
+                  lightbox.show(e.currentTarget.parentNode.dataset.id);
+                }  
+              });
             lightboxDom.querySelector('video').addEventListener('click', (e) => {
                 lightbox.show(e.currentTarget.parentNode.dataset.id);
             })
