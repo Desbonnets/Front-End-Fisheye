@@ -45,34 +45,30 @@ class lightBox {
     //initialise les evenements (flèches de navigation et la croix pour fermer)
     manageEvent() {
         document.querySelector('.previous').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.enter) {
+            if (e.which === this.keyCodes.enter) {
                 this.previous();
             }
         })
         document.querySelector('.next').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.enter) {
-                this.next();
-            }
-
-        })
-        document.getElementById('lightBox').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.ArrowLeft) {
-                this.previous();
-            }
-        })
-        document.getElementById('lightBox').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.ArrowRight) {
+            if (e.which === this.keyCodes.enter) {
                 this.next();
             }
 
         })
         document.querySelector('.close').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.enter) {
+            if (e.which === this.keyCodes.enter) {
                 document.getElementById("lightBox").style.display = "none";
             }
         })
         document.getElementById('lightBox').addEventListener('keydown', (e) => {
-            if (e.which === keyCodes.escape) {
+            console.log(e.which);
+            if (e.which === this.keyCodes.ArrowLeft) {
+                this.previous();
+            }
+            if (e.which === this.keyCodes.ArrowRight) {
+                this.next();
+            }
+            if (e.which === this.keyCodes.escape) {
                 document.getElementById("lightBox").style.display = "none";
             }
         })
