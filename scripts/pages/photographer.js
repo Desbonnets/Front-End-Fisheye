@@ -141,7 +141,7 @@ async function eventHandler(event) {
         }      
     });
 
-    const prenom = document.getElementById('prenom');
+/*    const prenom = document.getElementById('prenom');
     const errorP = document.querySelector('#errPrenom');
 
 prenom.addEventListener("input", function (event) {
@@ -165,7 +165,7 @@ form.addEventListener("submit", function (event) {
     // Et on empêche l'envoi des données du formulaire
     event.preventDefault();
   }
-}, false);
+}, false);*/
 
 const nom = document.getElementById('nom');
 const errorN = document.querySelector('#errNom');

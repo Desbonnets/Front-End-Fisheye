@@ -59,13 +59,13 @@ function closeModal() {
 
 //envoie le message
 function envoyerMessage() {
-  const prenom = document.getElementById("prenom");
+  //const prenom = document.getElementById("prenom");
   const nom = document.getElementById("nom");
   const email = document.getElementById("email");
   const message = document.getElementById("message");
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  if (prenom.value !== "" && nom.value !== "" && emailRegex.test(email.value) && message.value !== "") {
-    console.log("Prénom = " + prenom.value + "| Nom = " + nom.value + "| Email = " + email.value + "| Message = " + message.value);
+  if (nom.value !== "" && emailRegex.test(email.value) && message.value !== "") {
+    console.log("Nom = " + nom.value + "| Email = " + email.value + "| Message = " + message.value);
     closeModal();
   }
 }
