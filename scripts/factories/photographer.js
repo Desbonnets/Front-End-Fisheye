@@ -93,7 +93,7 @@ function photographerFactory(data) {
     function getScoreCardDOM() {
         //creation des elements
         const div = document.createElement('div')
-        const icon = document.createElement('i');
+        const icon = document.createElement('strong');
         const p = document.createElement('p');
         const p1 = document.createElement('p');
 
@@ -134,10 +134,10 @@ function mediaFactory(data, nom) {
         const vd = document.createElement('video');
         const div = document.createElement('div');
         const divInputCheck = document.createElement('div');
-        const divInputContent = document.createElement('div');
+        const label = document.createElement('label');
         const p = document.createElement('p');
         const aime = document.createElement('input');
-        const icon = document.createElement('i');
+        const icon = document.createElement('strong');
 
         //si c'est une video on construit la balise video
         if (picture.endsWith(".mp4")) {
@@ -176,20 +176,23 @@ function mediaFactory(data, nom) {
         div.setAttribute('id', "photo")
         div.setAttribute('data-id', id)
         aime.setAttribute('type', 'checkbox');
+        aime.setAttribute('name', 'likes'+likes);
+        aime.setAttribute('id', 'likes'+likes);
         aime.setAttribute('aria-label', 'Mettre un like')
         divInputCheck.setAttribute('class', 'inputCheckLikes');
-        divInputContent.setAttribute("class", "likes");
+        label.setAttribute("class", "likes");
+        label.setAttribute('for','likes'+likes)
         icon.setAttribute('class', 'fa-solid fa-heart');
 
         //Ajout du contenu dans les elements
         p.textContent = title;
-        divInputContent.textContent = likes;
+        label.textContent = likes;
 
         //organisation (parents/enfants) des elements
         div.appendChild(p);
         divInputCheck.appendChild(aime);
-        divInputCheck.appendChild(divInputContent);
-        divInputContent.appendChild(icon);
+        divInputCheck.appendChild(label);
+        label.appendChild(icon);
         div.appendChild(divInputCheck);
 
         return (div);

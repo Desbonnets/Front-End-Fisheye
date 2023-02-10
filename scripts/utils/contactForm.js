@@ -54,6 +54,7 @@ function closeModal() {
   modal.style.display = "none";
   modal.setAttribute('aria-hidden', true);
   modal.blur();
+  document.querySelector('.contact_button').focus();
 }
 
 //envoie le message

@@ -58,10 +58,10 @@ class lightBox {
         document.querySelector('.close').addEventListener('keydown', (e) => {
             if (e.which === this.keyCodes.enter) {
                 document.getElementById("lightBox").style.display = "none";
+                this.currentElement.focus();
             }
         })
         document.getElementById('lightBox').addEventListener('keydown', (e) => {
-            console.log(e.which);
             if (e.which === this.keyCodes.ArrowLeft) {
                 this.previous();
             }
@@ -70,6 +70,7 @@ class lightBox {
             }
             if (e.which === this.keyCodes.escape) {
                 document.getElementById("lightBox").style.display = "none";
+                console.log(this.currentElement);
             }
         })
         document.querySelector('.previous').addEventListener('click', () => {
